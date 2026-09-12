@@ -1,0 +1,1308 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>Be Mine ❤️</title>
+
+<style>
+
+/* =========================
+   RESET
+========================= */
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+
+/* =========================
+   BODY
+========================= */
+
+body {
+    min-height: 100vh;
+    background:
+        radial-gradient(circle at 50% 20%, #271050 0%, #0c0715 45%, #050308 100%);
+    color: white;
+    font-family: "Courier New", monospace;
+    overflow: hidden;
+}
+
+
+/* =========================
+   SCREEN SYSTEM
+========================= */
+
+.screen {
+    position: fixed;
+    inset: 0;
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    padding: 20px;
+
+    opacity: 0;
+    visibility: hidden;
+
+    transition:
+        opacity 0.8s ease,
+        visibility 0.8s ease;
+}
+
+.screen.active {
+    opacity: 1;
+    visibility: visible;
+}
+
+
+/* =========================
+   MAIN CONTAINER
+========================= */
+
+.container {
+    width: 100%;
+    max-width: 850px;
+}
+
+
+/* =========================
+   TERMINAL
+========================= */
+
+.terminal {
+    width: 100%;
+
+    background: rgba(8, 8, 15, 0.96);
+
+    border: 1px solid #30303a;
+
+    border-radius: 18px;
+
+    overflow: hidden;
+
+    box-shadow:
+        0 0 40px rgba(0, 255, 136, 0.12),
+        0 25px 80px rgba(0, 0, 0, 0.8);
+}
+
+
+/* =========================
+   TERMINAL HEADER
+========================= */
+
+.top-bar {
+    height: 45px;
+
+    background: #17151f;
+
+    display: flex;
+    align-items: center;
+
+    padding: 0 16px;
+
+    gap: 8px;
+}
+
+.dot {
+    width: 12px;
+    height: 12px;
+
+    border-radius: 50%;
+}
+
+.red {
+    background: #ff5f57;
+}
+
+.yellow {
+    background: #ffbd2e;
+}
+
+.green {
+    background: #28c840;
+}
+
+.filename {
+    margin-left: 10px;
+
+    color: #999;
+
+    font-size: 13px;
+}
+
+
+/* =========================
+   TERMINAL BODY
+========================= */
+
+.terminal-body {
+    padding: 25px;
+}
+
+
+/* =========================
+   SUCCESS BOX
+========================= */
+
+.success {
+    border: 1px solid #00ff88;
+
+    border-radius: 10px;
+
+    padding: 15px;
+
+    text-align: center;
+
+    color: #00ff88;
+
+    box-shadow:
+        0 0 20px rgba(0, 255, 136, 0.15);
+
+    margin-bottom: 25px;
+}
+
+.success h2 {
+    font-family: Arial, sans-serif;
+
+    margin-bottom: 6px;
+}
+
+
+/* =========================
+   TERMINAL TEXT
+========================= */
+
+.code {
+    color: #ddd;
+
+    line-height: 1.9;
+
+    font-size: 15px;
+}
+
+.prompt {
+    color: #00ff88;
+}
+
+.typing {
+    color: white;
+}
+
+.cursor {
+    display: inline-block;
+
+    width: 8px;
+    height: 17px;
+
+    background: #00ff88;
+
+    margin-left: 3px;
+
+    animation: blink 0.8s infinite;
+
+    vertical-align: middle;
+}
+
+@keyframes blink {
+
+    50% {
+        opacity: 0;
+    }
+
+}
+
+
+/* =========================
+   EXCEPTION
+========================= */
+
+.exception {
+    margin-top: 30px;
+
+    border: 2px solid #00ff88;
+
+    border-radius: 14px;
+
+    padding: 20px;
+
+    text-align: center;
+
+    animation: pulse 2s infinite;
+}
+
+.exception h2 {
+    color: #00ff88;
+
+    font-family: Arial, sans-serif;
+
+    font-size: 19px;
+
+    margin-bottom: 18px;
+}
+
+@keyframes pulse {
+
+    50% {
+        box-shadow:
+            0 0 35px rgba(0, 255, 136, 0.25);
+    }
+
+}
+
+
+/* =========================
+   CODE BOX
+========================= */
+
+.inner-code {
+    background: #050509;
+
+    border-radius: 10px;
+
+    padding: 18px;
+
+    text-align: left;
+
+    line-height: 1.8;
+
+    color: #ddd;
+
+    overflow-x: auto;
+}
+
+.keyword {
+    color: #ff79c6;
+}
+
+.variable {
+    color: #8be9fd;
+}
+
+.string {
+    color: #f1fa8c;
+}
+
+.comment {
+    color: #777;
+
+    margin-top: 12px;
+}
+
+
+/* =========================
+   QUESTION
+========================= */
+
+.question {
+    margin-top: 32px;
+
+    text-align: center;
+
+    font-family: Arial, sans-serif;
+}
+
+.question h1 {
+    font-size: 30px;
+
+    margin-bottom: 8px;
+}
+
+.question p {
+    color: #999;
+
+    font-size: 14px;
+}
+
+
+/* =========================
+   BUTTONS
+========================= */
+
+.buttons {
+    margin-top: 25px;
+
+    display: flex;
+
+    justify-content: center;
+
+    gap: 18px;
+}
+
+.btn {
+    padding: 13px 32px;
+
+    border-radius: 30px;
+
+    font-size: 17px;
+
+    font-weight: bold;
+
+    font-family: Arial, sans-serif;
+
+    cursor: pointer;
+
+    transition: 0.3s;
+}
+
+.yes-btn {
+    color: #00ff88;
+
+    background: transparent;
+
+    border: 2px solid #00ff88;
+}
+
+.yes-btn:hover {
+    background: #00ff88;
+
+    color: #07100b;
+
+    transform: scale(1.08);
+
+    box-shadow:
+        0 0 30px rgba(0, 255, 136, 0.6);
+}
+
+.no-btn {
+    color: #ff6680;
+
+    background: transparent;
+
+    border: 2px solid #ff6680;
+}
+
+
+/* =========================
+   SECOND SCREEN
+========================= */
+
+.love-screen {
+    text-align: center;
+
+    width: 100%;
+
+    max-width: 700px;
+}
+
+
+/* Big Heart */
+
+.big-heart {
+    font-size: 90px;
+
+    display: inline-block;
+
+    animation:
+        heartbeat 1.2s infinite;
+
+    filter:
+        drop-shadow(0 0 25px rgba(255, 40, 100, 0.6));
+}
+
+@keyframes heartbeat {
+
+    0% {
+        transform: scale(1);
+    }
+
+    15% {
+        transform: scale(1.2);
+    }
+
+    30% {
+        transform: scale(1);
+    }
+
+    45% {
+        transform: scale(1.15);
+    }
+
+    70% {
+        transform: scale(1);
+    }
+
+}
+
+
+/* SUCCESS */
+
+.final-success {
+    margin-top: 15px;
+
+    color: #00ff88;
+
+    font-family: Arial, sans-serif;
+
+    font-size: 35px;
+
+    text-shadow:
+        0 0 20px rgba(0, 255, 136, 0.5);
+}
+
+
+/* Name */
+
+.name {
+    margin-top: 20px;
+
+    font-family: Arial, sans-serif;
+
+    font-size: 32px;
+
+    font-weight: bold;
+}
+
+
+/* Message */
+
+.message-box {
+    margin-top: 25px;
+
+    padding: 25px;
+
+    border:
+
+        1px solid rgba(255,255,255,0.15);
+
+    background:
+        rgba(255,255,255,0.04);
+
+    border-radius: 15px;
+
+    min-height: 110px;
+
+    box-shadow:
+        0 0 30px rgba(255, 0, 100, 0.08);
+}
+
+.final-message {
+    color: #ddd;
+
+    font-size: 17px;
+
+    line-height: 1.8;
+
+    font-family: Arial, sans-serif;
+}
+
+.message-cursor {
+    display: inline-block;
+
+    width: 7px;
+    height: 18px;
+
+    background: #00ff88;
+
+    animation: blink 0.8s infinite;
+
+    vertical-align: middle;
+}
+
+
+/* =========================
+   FUTURE TEXT
+========================= */
+
+.future {
+    margin-top: 25px;
+
+    color: #aaa;
+
+    font-family: Arial, sans-serif;
+
+    font-size: 15px;
+}
+
+
+/* =========================
+   FLOATING HEARTS
+========================= */
+
+.floating-heart {
+    position: fixed;
+
+    bottom: -50px;
+
+    font-size: 20px;
+
+    pointer-events: none;
+
+    animation: floatHeart linear forwards;
+
+    z-index: 1;
+}
+
+@keyframes floatHeart {
+
+    0% {
+        transform:
+            translateY(0)
+            rotate(0deg);
+
+        opacity: 0;
+    }
+
+    15% {
+        opacity: 1;
+    }
+
+    100% {
+        transform:
+            translateY(-110vh)
+            rotate(360deg);
+
+        opacity: 0;
+    }
+
+}
+
+
+/* =========================
+   CONFETTI
+========================= */
+
+.confetti {
+    position: fixed;
+
+    top: -20px;
+
+    width: 8px;
+    height: 8px;
+
+    pointer-events: none;
+
+    z-index: 9999;
+
+    animation:
+        confettiFall linear forwards;
+}
+
+@keyframes confettiFall {
+
+    to {
+        transform:
+            translateY(110vh)
+            rotate(720deg);
+
+        opacity: 0;
+    }
+
+}
+
+
+/* =========================
+   MOBILE
+========================= */
+
+@media(max-width:600px) {
+
+    .terminal-body {
+        padding: 18px;
+    }
+
+    .code,
+    .inner-code {
+        font-size: 11px;
+    }
+
+    .question h1 {
+        font-size: 24px;
+    }
+
+    .exception h2 {
+        font-size: 16px;
+    }
+
+    .btn {
+        padding: 11px 24px;
+
+        font-size: 15px;
+    }
+
+    .big-heart {
+        font-size: 75px;
+    }
+
+    .final-success {
+        font-size: 28px;
+    }
+
+    .name {
+        font-size: 26px;
+    }
+
+    .final-message {
+        font-size: 15px;
+    }
+
+}
+
+</style>
+</head>
+
+
+<body>
+
+
+<!-- ==================================================
+     SCREEN 1
+================================================== -->
+
+<section
+    class="screen active"
+    id="screen1">
+
+<div class="container">
+
+<div class="terminal">
+
+
+<!-- Terminal Header -->
+
+<div class="top-bar">
+
+<div class="dot red"></div>
+
+<div class="dot yellow"></div>
+
+<div class="dot green"></div>
+
+<div class="filename">
+    be_mine_request.sh
+</div>
+
+</div>
+
+
+<!-- Terminal Body -->
+
+<div class="terminal-body">
+
+
+<!-- Success -->
+
+<div class="success">
+
+<h2>
+🎉 SUCCESS! 🎉
+</h2>
+
+<p>
+Connection Established! ❤️
+</p>
+
+</div>
+
+
+<!-- Terminal -->
+
+<div class="code">
+
+<div>
+<span class="prompt">
+user@heart:~$
+</span>
+
+git commit -m
+"Best decision ever"
+</div>
+
+
+<div>
+<span class="prompt">
+[main ❤️]
+</span>
+
+Best decision ever
+</div>
+
+
+<div>
+1 heart changed,
+infinite happiness inserted (+)
+</div>
+
+
+<div>
+Building relationship...
+</div>
+
+
+<div>
+<span class="prompt">
+✓
+</span>
+
+Compilation successful!
+</div>
+
+
+<div>
+Ready for all our future adventures...
+</div>
+
+</div>
+
+
+<!-- Exception -->
+
+<div class="exception">
+
+<h2>
+⚠ Exception Caught:
+HappinessOverflowError
+</h2>
+
+
+<div class="inner-code">
+
+<span class="keyword">
+if
+</span>
+
+(answer ===
+
+<span class="string">
+"yes"
+</span>
+
+) {
+
+<br>
+
+
+&nbsp;&nbsp;
+
+<span class="variable">
+happiness.level
+</span>
+
+= Infinity;
+
+<br>
+
+
+&nbsp;&nbsp;
+
+console.log(
+
+<span class="string">
+"You made my day! ❤️"
+</span>
+
+);
+
+<br>
+
+}
+
+
+<div class="comment">
+
+// Can't wait for everything ahead with you! ❤️
+
+</div>
+
+</div>
+
+</div>
+
+
+<!-- Question -->
+
+<div class="question">
+
+<h1>
+Will you be mine? ❤️
+</h1>
+
+<p>
+Execute the most important decision of your life...
+</p>
+
+
+<div class="buttons">
+
+<button
+class="btn yes-btn"
+id="yesBtn">
+
+YES ❤️
+
+</button>
+
+
+<button
+class="btn no-btn"
+id="noBtn">
+
+NO 😭
+
+</button>
+
+</div>
+
+</div>
+
+
+</div>
+
+</div>
+
+</div>
+
+</section>
+
+
+
+<!-- ==================================================
+     SCREEN 2
+================================================== -->
+
+<section
+    class="screen"
+    id="screen2">
+
+
+<div class="love-screen">
+
+
+<!-- Heart -->
+
+<div class="big-heart">
+❤️
+</div>
+
+
+<!-- Success -->
+
+<h1 class="final-success">
+
+🎉 CONNECTION SUCCESSFUL 🎉
+
+</h1>
+
+
+<!-- YOUR NAME -->
+
+<h2 class="name">
+
+Dear YOUR NAME ❤️
+
+</h2>
+
+
+<!-- Message -->
+
+<div class="message-box">
+
+<p
+class="final-message"
+id="finalMessage">
+
+</p>
+
+<span
+class="message-cursor">
+</span>
+
+</div>
+
+
+<!-- Future -->
+
+<p class="future">
+
+✨ Here's to all the beautiful moments waiting for us... ✨
+
+</p>
+
+
+</div>
+
+</section>
+
+
+
+<script>
+
+
+/* ==================================================
+   PERSONAL INFORMATION
+================================================== */
+
+
+/*
+   👇 CHANGE THESE
+*/
+
+
+const yourName = "MAISHA";
+
+
+const message =
+
+"I don't know what the future holds, " +
+"but I know I want to experience it with you. ❤️ " +
+"Thank you for choosing me. " +
+"Let's create our own beautiful story together. " +
+"One day, one memory and one heartbeat at a time. ❤️";
+
+
+/* ==================================================
+   ELEMENTS
+================================================== */
+
+const yesBtn =
+    document.getElementById("yesBtn");
+
+const noBtn =
+    document.getElementById("noBtn");
+
+const screen1 =
+    document.getElementById("screen1");
+
+const screen2 =
+    document.getElementById("screen2");
+
+const finalMessage =
+    document.getElementById("finalMessage");
+
+const nameElement =
+    document.querySelector(".name");
+
+
+/* ==================================================
+   SET NAME
+================================================== */
+
+nameElement.innerHTML =
+    "Dear " + yourName + " ❤️";
+
+
+/* ==================================================
+   YES BUTTON
+================================================== */
+
+yesBtn.addEventListener(
+    "click",
+    function() {
+
+        /* Hide first screen */
+
+        screen1.classList.remove("active");
+
+
+        /* Show second screen */
+
+        setTimeout(function() {
+
+            screen2.classList.add("active");
+
+        }, 500);
+
+
+        /* Confetti */
+
+        for(
+            let i = 0;
+            i < 150;
+            i++
+        ) {
+
+            setTimeout(
+                createConfetti,
+                i * 10
+            );
+
+        }
+
+
+        /* Start message */
+
+        setTimeout(
+            typeFinalMessage,
+            1300
+        );
+
+    }
+);
+
+
+/* ==================================================
+   NO BUTTON
+================================================== */
+
+noBtn.addEventListener(
+    "mouseenter",
+    escapeButton
+);
+
+
+noBtn.addEventListener(
+    "touchstart",
+    function(e) {
+
+        e.preventDefault();
+
+        escapeButton();
+
+    }
+);
+
+
+function escapeButton() {
+
+    const buttonWidth = 120;
+
+    const buttonHeight = 50;
+
+
+    const maxX =
+        window.innerWidth -
+        buttonWidth -
+        10;
+
+
+    const maxY =
+        window.innerHeight -
+        buttonHeight -
+        10;
+
+
+    const randomX =
+        Math.random() * maxX;
+
+
+    const randomY =
+        Math.random() * maxY;
+
+
+    noBtn.style.position =
+        "fixed";
+
+
+    noBtn.style.left =
+        randomX + "px";
+
+
+    noBtn.style.top =
+        randomY + "px";
+
+}
+
+
+/* ==================================================
+   TYPING EFFECT
+================================================== */
+
+let messageIndex = 0;
+
+
+function typeFinalMessage() {
+
+    if(
+        messageIndex <
+        message.length
+    ) {
+
+        finalMessage.innerHTML +=
+            message.charAt(messageIndex);
+
+        messageIndex++;
+
+        setTimeout(
+            typeFinalMessage,
+            45
+        );
+
+    }
+
+}
+
+
+/* ==================================================
+   CONFETTI
+================================================== */
+
+function createConfetti() {
+
+    const confetti =
+        document.createElement("div");
+
+
+    confetti.className =
+        "confetti";
+
+
+    confetti.style.left =
+        Math.random() * 100 + "vw";
+
+
+    confetti.style.background =
+        randomColor();
+
+
+    confetti.style.width =
+        Math.random() * 8 + 5 + "px";
+
+
+    confetti.style.height =
+        Math.random() * 8 + 5 + "px";
+
+
+    confetti.style.animationDuration =
+        Math.random() * 3 + 2 + "s";
+
+
+    document.body.appendChild(
+        confetti
+    );
+
+
+    setTimeout(
+        function() {
+
+            confetti.remove();
+
+        },
+        5000
+    );
+
+}
+
+
+/* ==================================================
+   RANDOM COLOR
+================================================== */
+
+function randomColor() {
+
+    const colors = [
+
+        "#00ff88",
+
+        "#ff4d6d",
+
+        "#ffcc00",
+
+        "#00d9ff",
+
+        "#9b5de5",
+
+        "#ffffff"
+
+    ];
+
+
+    return colors[
+        Math.floor(
+            Math.random() *
+            colors.length
+        )
+    ];
+
+}
+
+
+/* ==================================================
+   FLOATING HEARTS
+================================================== */
+
+function createHeart() {
+
+    const heart =
+        document.createElement("div");
+
+
+    heart.className =
+        "floating-heart";
+
+
+    const hearts = [
+        "❤️",
+        "💖",
+        "💕",
+        "💗",
+        "💓",
+        "💘"
+    ];
+
+
+    heart.innerHTML =
+        hearts[
+            Math.floor(
+                Math.random() *
+                hearts.length
+            )
+        ];
+
+
+    heart.style.left =
+        Math.random() * 100 + "vw";
+
+
+    heart.style.fontSize =
+        Math.random() * 20 + 15 + "px";
+
+
+    heart.style.animationDuration =
+        Math.random() * 5 + 5 + "s";
+
+
+    document.body.appendChild(
+        heart
+    );
+
+
+    setTimeout(
+        function() {
+
+            heart.remove();
+
+        },
+        10000
+    );
+
+}
+
+
+/* ==================================================
+   CONTINUOUS HEART ANIMATION
+================================================== */
+
+setInterval(
+    createHeart,
+    700
+);
+
+
+/* ==================================================
+   CONTINUOUS CONFETTI
+================================================== */
+
+setInterval(
+    function() {
+
+        if(
+            screen2.classList.contains("active")
+        ) {
+
+            createConfetti();
+
+        }
+
+    },
+    250
+);
+
+</script>
+
+</body>
+</html>
